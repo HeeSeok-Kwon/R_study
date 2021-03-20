@@ -1,0 +1,125 @@
+[8주차 강의 실습 자료]
+
+1. 아래의 R명령어를 R Studio 환경에서 실행해 보세요.
+##### 8주차-1차시 실습 #####
+x <- 3  
+if (x < 10) {            # x라는 스칼라값 하나에 적용
+  print("10보다 작아요")
+} else {
+  print("10보다 커요")
+}
+ 
+y <- c(1,2,3,4,5)         
+ifelse ( y%%2 ==0, "짝수", "홀수")   # 벡터 데이터 전체에 적용
+ 
+sum <- 0
+for(i in 1:10){
+  print(i)             # i라는 스칼라값 하나에 적용(반복적으로)
+  sum <- sum + i
+}
+print(sum)
+sum1toN <- function(n){    #함수 정의
+  sum <- 0
+  i <- 1
+  while ( i <= n){
+    sum <- sum + i
+    i <- i + 1
+  }
+  return(sum)
+}
+result <- sum1toN(100)         #함수호출 => 함수의 기능을 이용하기 위하여 부름
+result
+#2개의 숫자에 대하요 큰 값을 알려주는 함수는?
+Greater <- function(a, b){    #함수 정의
+  if ( a> b) {max <- a}
+  else {max <- b}
+   return(max)
+}
+Greter(10,11)
+# 데이터프레임을 행렬로 바꿔주는 사용자정의함수는?
+sungjuk <- data.frame(name = c("홍길동","김길동","박길동"),
+                      kuk = c(80, 97, 85),
+                      eng = c(94, 100, 97))
+class(sungjuk)
+test <- CovD2M(sungjuk)
+class(test)
+##### 8주차-2차시 실습 #####
+setwd("d:/lect")
+head(mtcars)
+dim(mtcars)
+airquality
+str(airquality)
+dim(airquality)
+test <- read.csv("고객.txt")
+test
+str(test)
+test1 <- read.csv("도서.txt", sep="\t")
+str(test1)
+dim(test1)
+?read.csv
+test <- 1
+write.csv(test, "test.csv", row.name=TRUE)
+df <- data.frame(a = c(1,2) , b = c("홍길동", "춘향이"))
+write.csv(df, "df.csv", row.name=TRUE)
+write.csv(airquality, "공기질.txt", row.name=TRUE)
+write.csv(airquality, "공기질.csv", row.name=TRUE)
+test <- 1
+write.csv(test, "test.csv", row.name=TRUE)
+install.packages("readxl")
+library(readxl)
+cust <- read_excel(path="서점DB.xls", sheet="고객", col_names=TRUE)
+cust
+str(cust)
+book <- read_excel(path="서점DB.xls", sheet=2, col_names=TRUE)
+book
+str(book)
+order <- read_excel(path="서점DB.xls", sheet=3, col_names=TRUE)
+order
+str(order)
+?read_excel
+install.packages("writexl")
+library(writexl)
+write_xlsx(book, "도서2.xls", format_headers=F)
+write_xlsx(book, "도서3.xls", col_names=F, format_headers=F)
+?write_xlsx
+2. SQL서버에 외부 소프트웨어가 접속할 수 있도록 허용하는 설정을 아래의 절차에 따라 수행하시오.
+ -  SQL Server2014의 SQL Server 구성관리자 실행
+ -  SQL Server네트워크구성 선택
+ -  TCP/IP를 '사용'으로 설정
+ -  IP주소탭을 클릭하고 IPALL항목에서 TCP포트를 1433으로 설정
+3. SQL서버에 외부 소프트웨어가 접속하는데 사용되는ODBC를 다음의 절차에 따라 생성하시오.
+  - 제어판 선택
+  - 관리도구 선택
+  - ODBC원본 선택(64비트 또는 32비트)
+  - 이름 설정 : rConn
+  - 서버 설정 : localhost
+  - 기본 데이터베이스를 'MOOC_DB'선택
+4. 아래의 R명령어를 실행하여 SQL서버와의 연동을 통한 데이터 처리를 실습해보세요.
+install.packages("RODBC")
+library(RODBC)
+conn <- odbcConnect("rtest")
+cust1 <- sqlQuery(conn, "select * from 고객");
+cust1
+class(cust1)
+test <- sqlQuery(conn, "update 고객 set 주소 = \'대한민국 제주\' where 이름 = \'박지성\'")
+book <- sqlQuery(conn, "select * from 도서");
+book
+class(book)
+5. sqldf()함수를 사용하여 SQL명령어를 실행시키는 아래의 R명령어를 실습해 보세요.
+install.packages("sqldf")
+library(sqldf)
+cust <- read.csv("고객.txt",stringsAsFactors=T)
+cust
+str(cust)
+book <- read.csv("도서.txt", sep="\t", stringsAsFactors=F)
+str(book)
+order3 <- read.csv("주문.txt", stringsAsFactors=T)
+str(order3)
+sel_cust <- sqldf("select * from cust");          # R에서 생성된 변수 cust 사용
+sel_book <- sqldf("select * from book");   # R에서 생성된 변수 book 사용
+sel_order <- sqldf("select * from order3"); # R에서 생성된 변수 order3 사용
+str(order)
+고객별판매액 <- sqldf("select 고객번호, sum(판매가격) from order3 group by 고객번호")
+고객별판매액
+colnames(고객별판매액) <- c("cust_no", "sales")
+colnames(고객별판매액) <- c("고객번호", "판매액")
