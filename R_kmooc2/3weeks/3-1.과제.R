@@ -1,0 +1,13 @@
+#1
+m<-c(10,40,60,20)
+f<-c(21,60,70,30)
+score<-cbind(m,f)
+score
+#2
+colnames(score)<-c('male',"female")
+#3
+score[2,]
+#4
+score[,"female"]
+#5
+score[3,2]

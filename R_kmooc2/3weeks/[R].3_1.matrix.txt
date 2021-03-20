@@ -1,0 +1,36 @@
+##3주차 강의##
+[matrix]
+2차원 데이터 저장 -> 저장하는 자료의 종류 동일
+
+data frame : 숫자와 문자 등 섞어 저장 가능
+- column 내에서는 동일
+
+
+matrix 생성
+z <- matrix(1:20, nrow=5, ncol=5)
+z
+
+직접 만드는 경우 거의 없고 파일에서 불러옴
+
+z2 <- matrix(1:20, nrow=5, ncol=5, byrow=T)
+
+x <- 1:4
+y <- 5:8
+
+m1 <- cbind(x,y) #열방향 결합
+m2 <- rbind(x,y) #행방향 결합
+m3 <- rbind(m2,x)
+m4 <- cbind(z,x)
+
+matrix 안에서 위치 지정
+z[2,3] #2행 3열에 있는 값
+z[1,4]
+z[2,]
+z[,4]
+
+행과 열에 이름 붙이기
+rownames(z) <- c("row1","row2","row3","row4")
+colnames(z) <- c("col1","col2","col3","col4","col5")
+
+z[,"col3"]
+z["row2",]

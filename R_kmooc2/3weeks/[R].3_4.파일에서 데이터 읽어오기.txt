@@ -1,0 +1,29 @@
+setwd("C:/Rworks")
+mydata <- read.csv("test.csv", header = TRUE)
+mydata
+
+header = false : 첫 줄부터 데이터 시작
+
+mynew <- mydata[,c(2,3)]
+write.csv(mynew, "kid_new.csv", row.names=F, quote=F)
+row.names=F : 행 이름 붙이지 말라
+quote=F : ""를 붙이지 말라
+
+setwd 없이 바로 읽고 쓰는 법
+mydata <- read.csv("C:/Rworks/test.csv", header=TRUE)
+
+파일 탐색기 등으로 찾아서 읽어오기
+mydata <- read,csv(file.choose(), header=TRUE)
+
+read.csv 실행 시 한글 깨짐 해결
+한글 인코딩 방법 (UTF-8)
+Rstudio 한글 옵션 설정 UTF-8
+메뉴 -> Tools -> Global Option -> Default text incoding -> UTF-8  
+
+Excel 에서 파일 읽은 후, 다른 이름으로 저장
+파일 포멧은 .csv(UTF-8)
+CSV UTF-8(쉼표로 분리)(*.csv)
+
+setwd("C:/Rworks")
+mydata <- read.csv("test.csv", header = TRUE, encoding="utf-8")
+mydata
