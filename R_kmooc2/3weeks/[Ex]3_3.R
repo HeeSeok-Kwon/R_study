@@ -1,0 +1,17 @@
+st <- data.frame(state.x77)
+# print(st)
+# print(colnames(st))
+# print(rownames(st))
+# print(nrow(st))
+# print(ncol(st))
+# print(str(st))
+# print(rowSums(st))
+# print(rowMeans(st))
+# print(colSums(st))
+# print(colMeans(st))
+# print(subset(st, rownames(st)=="Florida"))
+# print(st[,'Income'])
+# print(st["Texas","Area"])
+
+print(subset(st[,c("Population","Income")],rownames(st)=="Ohio"))
+
